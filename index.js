@@ -38,6 +38,7 @@ app.get("/desktop-config", (req, res) => {
 });
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`✅ Static server running on port ${PORT}`);
-  console.log(`Check user-data: http://localhost:${PORT}/user-data`);
+  console.log(
+    `Check the desktop-config: http://localhost:${PORT}/desktop-config`,
+  );
 });
