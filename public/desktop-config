@@ -1,0 +1,51 @@
+#cloud-config
+# Note the following about this script :
+# - Designed to be used with Ubuntu Desktop for personal use
+# - Mixture of dev tools and some entertainment stuff like Steam/VLC
+autoinstall:
+  version: 1
+  locale: en_US.UTF-8
+  keyboard:
+    layout: us
+  identity:
+    hostname: odimes-desktop
+    # password: $6$pe11Vitrl.k/MudU$hIYM/fCzjriNXvwfGtwUyxzq.YTsPuOK8qvjHwiJo/QvK2VXdfXFo8aP2w5T60CWDczv5WA.6XuaHvZF843wh.
+    realname: Oliver Dimes
+    username: odimes
+  # Keyboard config, don't fight me on this :)
+  # Doing a standard storage setup for Ubuntu Desktop
+  storage:
+    layout:
+      name: direct
+  # Below are the packages to install
+  packages:
+    - curl
+    - git
+    - vlc
+    - build-essential
+    - python3-pip
+    - docker.io
+  #  - steam-installer
+  # Not much snap packages needed
+  snaps:
+    - name: bruno
+    - name: code
+      classic: true
+  user-data:
+    package_upgrade: true
+    timezone: UTC
+    # Docker configuration at the bottom
+    runcmd:
+      - usermod -aG docker odimes
+  late-commands:
+    # Install/setup Node.js, using Nodesource instead of the ones in Ubuntu repos
+    - curtin in-target -- bash -c "curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -"
+    - curtin in-target -- apt install -y nodejs
+    # Install Google Chrome, Firefox is already preinstalled
+    # Doesn't work on Ubuntu ARM
+    # - curtin in-target -- bash -c "wget -qO - https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/google-linux.gpg"
+    # - curtin in-target -- bash -c "echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/google-linux.gpg] http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sources.list.d/google-chrome.list"
+    # - curtin in-target -- apt update
+    # - curtin in-target -- apt install -y google-chrome-stable
+    # Enable the docker service at the very end
+    - curtin in-target -- systemctl enable docker
