@@ -9,7 +9,6 @@ autoinstall:
     layout: us
   identity:
     hostname: odimes-desktop
-    # password: $6$pe11Vitrl.k/MudU$hIYM/fCzjriNXvwfGtwUyxzq.YTsPuOK8qvjHwiJo/QvK2VXdfXFo8aP2w5T60CWDczv5WA.6XuaHvZF843wh.
     realname: Oliver Dimes
     username: odimes
   # Keyboard config, don't fight me on this :)
